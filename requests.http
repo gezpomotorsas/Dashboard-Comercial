@@ -1,0 +1,155 @@
+### Salud y versión
+GET http://localhost:8000/health
+
+###
+GET http://localhost:8000/version
+
+### Metadatos HubSpot
+GET http://localhost:8000/api/v1/hubspot/metadata/contact-properties
+
+###
+GET http://localhost:8000/api/v1/hubspot/metadata/deal-properties
+
+###
+GET http://localhost:8000/api/v1/hubspot/metadata/owners
+
+###
+GET http://localhost:8000/api/v1/hubspot/metadata/deal-pipelines
+
+###
+GET http://localhost:8000/api/v1/hubspot/metadata/association-labels
+
+### Contactos
+GET http://localhost:8000/api/v1/hubspot/contacts?limit=2
+
+###
+GET http://localhost:8000/api/v1/hubspot/contacts?all_properties=true&limit=5
+
+###
+GET http://localhost:8000/api/v1/hubspot/contacts/1?associations=deals,calls
+
+### Negocios
+GET http://localhost:8000/api/v1/hubspot/deals?limit=2
+
+###
+GET http://localhost:8000/api/v1/hubspot/deals?all_properties=true&limit=5
+
+###
+GET http://localhost:8000/api/v1/hubspot/deals/1
+
+### Actividades
+GET http://localhost:8000/api/v1/hubspot/activities/calls?limit=2
+
+###
+GET http://localhost:8000/api/v1/hubspot/activities/meetings?limit=2
+
+###
+GET http://localhost:8000/api/v1/hubspot/activities/tasks?limit=2
+
+###
+GET http://localhost:8000/api/v1/hubspot/activities/emails?limit=2
+
+###
+GET http://localhost:8000/api/v1/hubspot/activities/emails?limit=2&properties=hs_email_text
+
+###
+GET http://localhost:8000/api/v1/hubspot/activities/communications?limit=2
+
+###
+GET http://localhost:8000/api/v1/hubspot/activities/notes?limit=2
+
+### Sincronizaciones
+POST http://localhost:8000/api/v1/sync/metadata
+Content-Type: application/json
+
+{
+  "sync_type": "full",
+  "batch_size": 100
+}
+
+###
+POST http://localhost:8000/api/v1/sync/contacts
+Content-Type: application/json
+
+{
+  "sync_type": "full",
+  "batch_size": 100
+}
+
+###
+POST http://localhost:8000/api/v1/sync/deals
+Content-Type: application/json
+
+{
+  "sync_type": "incremental",
+  "batch_size": 100
+}
+
+###
+POST http://localhost:8000/api/v1/sync/calls
+Content-Type: application/json
+
+{
+  "sync_type": "full",
+  "batch_size": 100
+}
+
+###
+POST http://localhost:8000/api/v1/sync/meetings
+Content-Type: application/json
+
+{
+  "sync_type": "full",
+  "batch_size": 100
+}
+
+###
+POST http://localhost:8000/api/v1/sync/tasks
+Content-Type: application/json
+
+{
+  "sync_type": "full",
+  "batch_size": 100
+}
+
+###
+POST http://localhost:8000/api/v1/sync/emails
+Content-Type: application/json
+
+{
+  "sync_type": "full",
+  "batch_size": 100
+}
+
+###
+POST http://localhost:8000/api/v1/sync/communications
+Content-Type: application/json
+
+{
+  "sync_type": "full",
+  "batch_size": 100
+}
+
+###
+POST http://localhost:8000/api/v1/sync/notes
+Content-Type: application/json
+
+{
+  "sync_type": "full",
+  "batch_size": 100
+}
+
+###
+POST http://localhost:8000/api/v1/sync/all
+Content-Type: application/json
+
+{
+  "sync_type": "full",
+  "batch_size": 100
+}
+
+###
+GET http://localhost:8000/api/v1/sync/runs
+
+###
+GET http://localhost:8000/api/v1/sync/runs/{{sync_id}}

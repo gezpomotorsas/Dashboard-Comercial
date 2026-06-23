@@ -1,0 +1,33 @@
+# Despliegue automático al servidor vía SSH cuando haces push a main.
+# Configura estos secrets en GitHub → Settings → Secrets → Actions:
+#   DEPLOY_HOST     — IP o dominio del servidor
+#   DEPLOY_USER     — usuario SSH
+#   DEPLOY_SSH_KEY  — clave privada (PEM)
+#   DEPLOY_PATH     — ruta absoluta al repo en el servidor (ej. /opt/dashboard)
+# Opcional: DEPLOY_BRANCH (default main)
+
+name: Deploy to server
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, master]
+
+jobs:
+  deploy:
+    if: github.event_name == 'workflow_dispatch' || github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy over SSH
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          script: |
+            set -euo pipefail
+            cd "${{ secrets.DEPLOY_PATH }}"
+            export DEPLOY_BRANCH="${{ vars.DEPLOY_BRANCH }}"
+            if [ -z "$DEPLOY_BRANCH" ]; then DEPLOY_BRANCH=main; fi
+            chmod +x scripts/deploy-from-github.sh
+            ./scripts/deploy-from-github.sh

@@ -1,0 +1,23 @@
+{
+  "checks": [
+    {
+      "name": "migration_005_exists",
+      "ok": true,
+      "detail": "sql/005_deal_centric_analytics.sql"
+    },
+    {
+      "name": "supabase_tables",
+      "ok": false,
+      "detail": "[Errno 11001] getaddrinfo failed"
+    },
+    {
+      "name": "deal_analytics_populated",
+      "ok": false,
+      "detail": "Ejecute POST /api/v1/deal-analytics/refresh despu\u00e9s de aplicar sql/005"
+    }
+  ],
+  "totals": {
+    "hubspot_deals": 0,
+    "deal_analytics": 0
+  }
+}

@@ -1,0 +1,31 @@
+.env
+.env.*
+!.env.example
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.ruff_cache/
+dist/
+build/
+*.egg-info/
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+
+# Scripts / informes generados localmente
+scripts/*.json
+scripts/*.log
+scripts/management_data_exploration_summary.md
+
+# IDE / OS
+.idea/
+.vscode/
+!.vscode/extensions.json
+.DS_Store
+Thumbs.db
+*.swp
+
+# Cursor
+.cursor/
