@@ -98,6 +98,13 @@ def _filtered_rows_lock(key: str) -> threading.Lock:
         return lock
 
 
+def invalidate_deal_analytics_cache() -> None:
+    _response_cache.clear()
+    _filtered_rows_cache.clear()
+    _contact_bundle_cache.clear()
+    _filtered_rows_locks.clear()
+
+
 def _cache_get(key: str) -> dict[str, Any] | None:
     entry = _response_cache.get(key)
     if not entry:
@@ -368,7 +375,7 @@ class DealAnalyticsQueryService:
     def brand_operating(self, brand_value: str) -> dict[str, Any]:
         """Dashboard operativo por marca: etapas semánticas, asesores, semanal."""
         brand = brand_value.strip().lower()
-        cache_key = f"brand_operating:{brand}:v5"
+        cache_key = f"brand_operating:{brand}:v7"
         cached = _cache_get(cache_key)
         if cached is not None:
             return cached

@@ -33,7 +33,9 @@ const GROUP_TABLE_COLUMN_DEFS = [
   { label: 'Miembros', tooltip: 'Cantidad de asesores en el grupo.' },
   { label: 'Abiertos', tooltip: 'Negocios abiertos del grupo en la marca.' },
   { label: '__STALE__', tooltip: '__STALE__' },
-  { label: 'Cob. llamadas', tooltip: 'Cobertura de llamadas en ventana 21d (agregación grupal).' },
+  { label: 'Llam. 7d', tooltip: '% de negocios abiertos del grupo con llamada en los últimos 7 días.' },
+  { label: 'Llam. 15d', tooltip: '% de negocios abiertos del grupo con llamada en los últimos 15 días.' },
+  { label: 'Llam. 30d', tooltip: '% de negocios abiertos del grupo con llamada en los últimos 30 días.' },
   { label: 'Cob. WhatsApp', tooltip: 'Cobertura WhatsApp en ventana 21d.' },
   { label: 'Cob. combinada', tooltip: 'Cobertura combinada llamada y/o WhatsApp.' },
   { label: 'Atrasados 21d', tooltip: 'Negocios activos sin contacto en 21 días.' },
@@ -51,7 +53,9 @@ function buildGroupTableColumns(brand: OperatingBrand, staleDays?: number) {
 function groupCoverageCells(g: GroupCompareRow) {
   const cm = g.contact_methodology
   return [
-    cm?.calls?.call_coverage_rate != null ? formatPercent(cm.calls.call_coverage_rate) : '—',
+    cm?.calls?.call_coverage_rate_7d != null ? formatPercent(cm.calls.call_coverage_rate_7d) : '—',
+    cm?.calls?.call_coverage_rate_15d != null ? formatPercent(cm.calls.call_coverage_rate_15d) : '—',
+    cm?.calls?.call_coverage_rate_30d != null ? formatPercent(cm.calls.call_coverage_rate_30d) : '—',
     cm?.whatsapp?.whatsapp_coverage_rate != null ? formatPercent(cm.whatsapp.whatsapp_coverage_rate) : '—',
     cm?.coverage?.combined_contact_coverage_rate != null
       ? formatPercent(cm.coverage.combined_contact_coverage_rate)
@@ -518,7 +522,9 @@ export function GrupoPage() {
                           <th className="px-2 py-2">Asesor</th>
                           <th className="px-2 py-2">Abiertos</th>
                           <th className="px-2 py-2">{staleColumnLabel}</th>
-                          <th className="px-2 py-2">Cob. llamadas</th>
+                          <th className="px-2 py-2">Llam. 7d</th>
+                          <th className="px-2 py-2">Llam. 15d</th>
+                          <th className="px-2 py-2">Llam. 30d</th>
                           <th className="px-2 py-2">Cob. combinada</th>
                           <th className="px-2 py-2">Tareas venc.</th>
                         </tr>
@@ -541,7 +547,13 @@ export function GrupoPage() {
                             <td className="px-2 py-2">{adv.open_deals}</td>
                             <td className="px-2 py-2">{adv.stale_45d_open}</td>
                             <td className="px-2 py-2">
-                              {adv.call_coverage_rate != null ? formatPercent(adv.call_coverage_rate) : '—'}
+                              {adv.call_coverage_rate_7d != null ? formatPercent(adv.call_coverage_rate_7d) : '—'}
+                            </td>
+                            <td className="px-2 py-2">
+                              {adv.call_coverage_rate_15d != null ? formatPercent(adv.call_coverage_rate_15d) : '—'}
+                            </td>
+                            <td className="px-2 py-2">
+                              {adv.call_coverage_rate_30d != null ? formatPercent(adv.call_coverage_rate_30d) : '—'}
                             </td>
                             <td className="px-2 py-2">
                               {adv.combined_coverage_rate != null ? formatPercent(adv.combined_coverage_rate) : '—'}

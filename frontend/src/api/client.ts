@@ -1,4 +1,13 @@
-const API_BASE = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8000'
+function resolveApiBase(): string {
+  const configured = import.meta.env.VITE_API_BASE_URL
+  if (typeof configured === 'string' && configured.trim() !== '') {
+    return configured.replace(/\/$/, '')
+  }
+  // Dev local: Vite proxy en :5173 → API :8000. Producción: mismo origen (exe/nginx).
+  return import.meta.env.DEV ? 'http://localhost:8000' : ''
+}
+
+const API_BASE = resolveApiBase()
 
 export class ApiError extends Error {
   status: number

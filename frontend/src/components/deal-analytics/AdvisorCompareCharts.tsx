@@ -49,7 +49,9 @@ type ChartRow = {
   open_deals: number
   new_deals_7d: number
   new_deals_30d: number
-  call_coverage_rate: number
+  call_coverage_rate_7d: number
+  call_coverage_rate_15d: number
+  call_coverage_rate_30d: number
   whatsapp_coverage_rate: number
   combined_coverage_rate: number
   overdue_contact_21d: number
@@ -67,7 +69,9 @@ function toChartRow(row: BrandAdvisorRow): ChartRow {
     open_deals: row.open_deals,
     new_deals_7d: row.new_deals_7d,
     new_deals_30d: row.new_deals_30d,
-    call_coverage_rate: row.call_coverage_rate ?? 0,
+    call_coverage_rate_7d: row.call_coverage_rate_7d ?? 0,
+    call_coverage_rate_15d: row.call_coverage_rate_15d ?? 0,
+    call_coverage_rate_30d: row.call_coverage_rate_30d ?? 0,
     whatsapp_coverage_rate: row.whatsapp_coverage_rate ?? 0,
     combined_coverage_rate: row.combined_coverage_rate ?? 0,
     overdue_contact_21d: row.overdue_contact_21d ?? 0,
@@ -229,15 +233,17 @@ export function AdvisorCompareCharts({
           </ChartCard>
 
           <ChartCard
-            title="Cobertura de contacto (21d)"
-            description="Porcentaje de negocios activos contactados por llamada, WhatsApp o ambos. Atrasados = sin contacto en 21d."
+            title="Cobertura de llamadas"
+            description="Porcentaje de negocios abiertos con al menos una llamada en 7, 15 y 30 días."
           >
             <CompareBarChart
               data={chartData}
               height={chartHeight}
               brandKey={brandKey}
               bars={[
-                { key: 'call_coverage_rate', name: 'Cob. llamadas (%)', fill: COLORS.callCoverage, isPercent: true },
+                { key: 'call_coverage_rate_7d', name: 'Llam. 7d (%)', fill: COLORS.callCoverage, isPercent: true },
+                { key: 'call_coverage_rate_15d', name: 'Llam. 15d (%)', fill: COLORS.new7, isPercent: true },
+                { key: 'call_coverage_rate_30d', name: 'Llam. 30d (%)', fill: COLORS.new30, isPercent: true },
                 { key: 'whatsapp_coverage_rate', name: 'Cob. WhatsApp (%)', fill: COLORS.waCoverage, isPercent: true },
                 { key: 'combined_coverage_rate', name: 'Cob. combinada (%)', fill: COLORS.combinedCoverage, isPercent: true },
                 { key: 'overdue_contact_21d', name: 'Atrasados 21d', fill: COLORS.overdueContact },

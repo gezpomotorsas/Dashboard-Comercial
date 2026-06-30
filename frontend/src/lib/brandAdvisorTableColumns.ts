@@ -26,7 +26,9 @@ export function buildBrandAdvisorTableColumns(brand: string, staleDays?: number)
       case 'Neg. c/ tareas venc.':
         return { ...column, group: 'Tareas' as const, align: 'right' as const, minWidth: 96 }
       case 'Gestión 30d':
-      case 'Cob. llamadas':
+      case 'Llam. 7d':
+      case 'Llam. 15d':
+      case 'Llam. 30d':
       case 'Cob. WhatsApp':
       case 'Cob. combinada':
       case 'Atrasados 21d':

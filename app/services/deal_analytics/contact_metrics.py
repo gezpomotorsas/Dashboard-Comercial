@@ -388,6 +388,7 @@ def compute_contact_metrics(
     session_sizes = [len(s) for s in sessions]
 
     deals_called_7 = _deals_with_activity_in_days(open_deal_ids, deal_last_call, now, 7)
+    deals_called_15 = _deals_with_activity_in_days(open_deal_ids, deal_last_call, now, 15)
     deals_called_21 = _deals_with_activity_in_days(open_deal_ids, deal_last_call, now, 21)
     deals_called_30 = _deals_with_activity_in_days(open_deal_ids, deal_last_call, now, 30)
 
@@ -405,6 +406,9 @@ def compute_contact_metrics(
             overdue_21 += 1
 
     call_coverage_rate = round(unique_deals_called / active_open * 100, 1) if active_open else None
+    call_coverage_rate_7d = round(deals_called_7 / active_open * 100, 1) if active_open else None
+    call_coverage_rate_15d = round(deals_called_15 / active_open * 100, 1) if active_open else None
+    call_coverage_rate_30d = round(deals_called_30 / active_open * 100, 1) if active_open else None
     wa_coverage_rate = round(unique_deals_wa / active_open * 100, 1) if active_open else None
     combined_unique = len(
         {d for d in open_deal_ids if deal_calls_window.get(d, 0) > 0 or deal_wa_window.get(d, 0) > 0}
@@ -495,9 +499,13 @@ def compute_contact_metrics(
             "deals_with_one_call": sum(1 for d, n in deal_calls_window.items() if n == 1),
             "deals_with_multiple_calls": sum(1 for d, n in deal_calls_window.items() if n > 1),
             "deals_called_last_7d": deals_called_7,
+            "deals_called_last_15d": deals_called_15,
             "deals_called_last_21d": deals_called_21,
             "deals_called_last_30d": deals_called_30,
             "call_coverage_rate": call_coverage_rate,
+            "call_coverage_rate_7d": call_coverage_rate_7d,
+            "call_coverage_rate_15d": call_coverage_rate_15d,
+            "call_coverage_rate_30d": call_coverage_rate_30d,
             "call_coverage_numerator": unique_deals_called,
             "call_coverage_denominator": active_open,
             **duration_stats,
@@ -586,6 +594,9 @@ def merge_contact_metrics_into_advisor_row(
     return {
         **base,
         "call_coverage_rate": calls.get("call_coverage_rate"),
+        "call_coverage_rate_7d": calls.get("call_coverage_rate_7d"),
+        "call_coverage_rate_15d": calls.get("call_coverage_rate_15d"),
+        "call_coverage_rate_30d": calls.get("call_coverage_rate_30d"),
         "whatsapp_coverage_rate": wa.get("whatsapp_coverage_rate"),
         "combined_coverage_rate": cov.get("combined_contact_coverage_rate"),
         "overdue_contact_21d": cov.get("overdue_contact_21d"),

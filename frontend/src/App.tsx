@@ -6,6 +6,7 @@ import { GrupoPage } from '@/components/deal-analytics/GrupoPage'
 import { DealAnalyticsPage } from '@/components/deal-analytics/DealAnalyticsPage'
 import { DashboardPage } from '@/components/dashboard/DashboardPage'
 import { DashboardDataPrefetch } from '@/components/deal-analytics/DashboardDataPrefetch'
+import { LauncherUpdateBar } from '@/components/ui/LauncherUpdateBar'
 import { cachedQueryDefaults } from '@/lib/queryDefaults'
 
 const queryClient = new QueryClient({
@@ -19,17 +20,20 @@ export default function App() {
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <DashboardDataPrefetch />
-        <Routes>
-          <Route path="/" element={<BrandOperatingPage />} />
-          <Route path="/asesor" element={<AdvisorPortfolioPage />} />
-          <Route path="/asesor/:brand" element={<AdvisorPortfolioPage />} />
-          <Route path="/asesor/:brand/:ownerId" element={<AdvisorPortfolioPage />} />
-          <Route path="/grupo" element={<GrupoPage />} />
-          <Route path="/grupo/:groupId" element={<GrupoPage />} />
-          <Route path="/analytics" element={<DealAnalyticsPage />} />
-          <Route path="/legacy-weekly" element={<DashboardPage />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
+        <div className="pb-16">
+          <Routes>
+            <Route path="/" element={<BrandOperatingPage />} />
+            <Route path="/asesor" element={<AdvisorPortfolioPage />} />
+            <Route path="/asesor/:brand" element={<AdvisorPortfolioPage />} />
+            <Route path="/asesor/:brand/:ownerId" element={<AdvisorPortfolioPage />} />
+            <Route path="/grupo" element={<GrupoPage />} />
+            <Route path="/grupo/:groupId" element={<GrupoPage />} />
+            <Route path="/analytics" element={<DealAnalyticsPage />} />
+            <Route path="/legacy-weekly" element={<DashboardPage />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </div>
+        <LauncherUpdateBar />
       </BrowserRouter>
     </QueryClientProvider>
   )

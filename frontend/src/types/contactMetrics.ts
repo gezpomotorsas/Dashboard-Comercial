@@ -8,10 +8,14 @@ export interface ContactMetricsCalls {
   unanswered_calls?: number
   unique_deals_called: number
   call_coverage_rate: number | null
+  call_coverage_rate_7d?: number | null
+  call_coverage_rate_15d?: number | null
+  call_coverage_rate_30d?: number | null
   call_coverage_numerator?: number
   call_coverage_denominator?: number
   deals_without_calls?: number
   deals_called_last_7d?: number
+  deals_called_last_15d?: number
   deals_called_last_21d?: number
   deals_called_last_30d?: number
   total_call_minutes?: number | null
@@ -97,6 +101,9 @@ export interface ContactMethodologyData {
 
 export interface ContactAdvisorFields {
   call_coverage_rate?: number | null
+  call_coverage_rate_7d?: number | null
+  call_coverage_rate_15d?: number | null
+  call_coverage_rate_30d?: number | null
   whatsapp_coverage_rate?: number | null
   combined_coverage_rate?: number | null
   overdue_contact_21d?: number

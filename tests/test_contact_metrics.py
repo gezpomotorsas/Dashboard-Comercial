@@ -68,8 +68,26 @@ def test_call_coverage_rate():
     bundle = ContactActivityBundle(calls=calls, whatsapp=[], deal_to_call_ids={}, deal_to_whatsapp_ids={})
     metrics = compute_contact_metrics(deals, bundle, owner_id="A", contact_window_days=21)
     assert metrics["calls"]["call_coverage_rate"] == 50.0
+    assert metrics["calls"]["call_coverage_rate_7d"] == 50.0
+    assert metrics["calls"]["call_coverage_rate_15d"] == 50.0
+    assert metrics["calls"]["call_coverage_rate_30d"] == 50.0
     assert metrics["calls"]["call_coverage_numerator"] == 2
     assert metrics["calls"]["call_coverage_denominator"] == 4
+
+
+def test_call_coverage_rate_by_window():
+    deals = [
+        {"deal_id": "1", "owner_id": "A", "is_open": True, "is_won": False, "is_lost": False, "amount": 0},
+        {"deal_id": "2", "owner_id": "A", "is_open": True, "is_won": False, "is_lost": False, "amount": 0},
+        {"deal_id": "3", "owner_id": "A", "is_open": True, "is_won": False, "is_lost": False, "amount": 0},
+        {"deal_id": "4", "owner_id": "A", "is_open": True, "is_won": False, "is_lost": False, "amount": 0},
+    ]
+    calls = [_call("1", "A", 2), _call("2", "A", 3), _call("3", "A", 10), _call("4", "A", 20)]
+    bundle = ContactActivityBundle(calls=calls, whatsapp=[], deal_to_call_ids={}, deal_to_whatsapp_ids={})
+    metrics = compute_contact_metrics(deals, bundle, owner_id="A", contact_window_days=21)
+    assert metrics["calls"]["call_coverage_rate_7d"] == 50.0
+    assert metrics["calls"]["call_coverage_rate_15d"] == 75.0
+    assert metrics["calls"]["call_coverage_rate_30d"] == 100.0
 
 
 def test_combined_channel_mix():

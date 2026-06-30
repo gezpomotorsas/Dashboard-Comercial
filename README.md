@@ -106,6 +106,19 @@ Windows (PowerShell):
 
 **Despliegue automático:** configura los secrets `DEPLOY_HOST`, `DEPLOY_USER`, `DEPLOY_SSH_KEY` y `DEPLOY_PATH` en GitHub Actions; el workflow `.github/workflows/deploy-ssh.yml` ejecuta el script en cada push a `main`.
 
+## Ejecutable Windows (sin instalar Python)
+
+Para compartir el dashboard como `.exe` con actualización desde GitHub:
+
+```powershell
+.\scripts\build-windows-exe.ps1
+```
+
+Ver guía completa: [docs/EJECUTABLE_WINDOWS.md](docs/EJECUTABLE_WINDOWS.md)
+
+- Al abrir: comprueba actualizaciones en GitHub (release `runtime.zip`).
+- Manual: `http://127.0.0.1:8765/actualizar`
+
 ## Swagger
 
 Documentación interactiva: http://localhost:8000/docs

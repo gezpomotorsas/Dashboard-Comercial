@@ -71,8 +71,16 @@ export const BRAND_ADVISOR_COLUMNS: MetricColumn[] = [
     tooltip: 'Porcentaje de negocios abiertos con al menos una actividad en los últimos 30 días (llamadas, mensajes, reuniones o notas en ventana sync).',
   },
   {
-    label: 'Cob. llamadas',
-    tooltip: 'Negocios activos con al menos una llamada en la ventana de contacto (21d por defecto) ÷ negocios activos del asesor.',
+    label: 'Llam. 7d',
+    tooltip: '% de negocios abiertos del asesor con al menos una llamada en los últimos 7 días.',
+  },
+  {
+    label: 'Llam. 15d',
+    tooltip: '% de negocios abiertos del asesor con al menos una llamada en los últimos 15 días.',
+  },
+  {
+    label: 'Llam. 30d',
+    tooltip: '% de negocios abiertos del asesor con al menos una llamada en los últimos 30 días.',
   },
   {
     label: 'Cob. WhatsApp',
